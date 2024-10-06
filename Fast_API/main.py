@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException, Depends, status, Request
+from fastapi import FastAPI, HTTPException, Depends, status, Request, Query
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr, validator
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from jose import jwt, JWTError, ExpiredSignatureError
 from passlib.context import CryptContext
 from psycopg2 import connect, sql, OperationalError, errors
@@ -9,7 +9,12 @@ from uuid import uuid4, UUID
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
-from datetime import timezone
+from typing import List
+
+# Import Google Cloud Storage and exceptions
+from google.cloud import storage
+from google.cloud.exceptions import NotFound
+from google.oauth2.service_account import Credentials
 
 # Load environment variables
 load_dotenv()
@@ -20,8 +25,8 @@ DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI()
@@ -30,6 +35,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
+
+# Initialize Google Cloud Storage client
+storage_client = storage.Client()
 
 # Database connection dependency with error handling
 def get_db_connection():
@@ -80,9 +88,14 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-class ChatMessage(BaseModel):
-    message: str
+class SummarizeRequest(BaseModel):
+    file_name: str
+    source_type: str  # 'opensource' or 'cloudmersive_API'
 
+class QuestionRequest(BaseModel):
+    file_name: str
+    source_type: str  # 'opensource' or 'cloudmersive_API'
+    question: str
 
 CREATE_USERS_TABLE_QUERY = """
 CREATE TABLE IF NOT EXISTS users (
@@ -201,10 +214,9 @@ async def read_user_me(token: str = Depends(oauth2_scheme)):
         cur.close()
         conn.close()
 
-# Chat endpoint
-@app.post("/chat")
-async def chat_with_openai(
-    chat_message: ChatMessage,
+# List Files Endpoint
+@app.get("/files", response_model=List[str])
+async def list_files(
     token: str = Depends(oauth2_scheme)
 ):
     # Verify the token and get the current user
@@ -218,16 +230,175 @@ async def chat_with_openai(
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    # Interact with OpenAI API using the new format
+    # List files in the 'gaia_pdfs' folder of the 'gaia_files_pdf' bucket
+    try:
+        bucket_name = 'gaia_files_pdf'
+        prefix = 'gaia_pdfs/'  # Folder containing the PDF files
+        bucket = storage_client.get_bucket(bucket_name)
+        blobs = bucket.list_blobs(prefix=prefix)
+        file_names = [blob.name.replace(prefix, '') for blob in blobs if not blob.name.endswith('/')]
+        return file_names
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing files: {str(e)}")
+
+# Get Extracted Text Endpoint
+@app.get("/get-extracted-text")
+async def get_extracted_text(
+    file_name: str = Query(...),
+    source_type: str = Query(...),  # 'opensource' or 'cloudmersive_API'
+    token: str = Depends(oauth2_scheme)
+):
+    # Verify the token and get the current user
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = payload.get("sub")
+        if not username:
+            raise HTTPException(status_code=401, detail="Invalid token payload")
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    # Validate source_type input
+    if source_type not in ["opensource", "cloudmersive_API"]:
+        raise HTTPException(status_code=400, detail="source_type must be 'opensource' or 'cloudmersive_API'")
+
+    # Map source_type to the correct folder path
+    def get_file_prefix(source_type: str) -> str:
+        if source_type == 'opensource':
+            return "opensource_extracted/"
+        elif source_type == 'cloudmersive_API':
+            return "cloudmersive_API_extracted/"
+        else:
+            raise ValueError('Invalid source_type')
+
+    # Construct the full blob name
+    prefix = get_file_prefix(source_type)
+    # Replace the file extension with .txt
+    base_name, _ = os.path.splitext(file_name)
+    txt_file_name = base_name + '.txt'
+    blob_name = prefix + txt_file_name
+
+    # Retrieve the content of the .txt file from the bucket
+    try:
+        bucket_name = 'gaia_files_pdf'
+        bucket = storage_client.get_bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+        text_content = blob.download_as_text()
+        return {"extracted_text": text_content}
+    except NotFound:
+        raise HTTPException(status_code=404, detail="Extracted text file not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving extracted text: {str(e)}")
+
+# Helper function to retrieve extracted text content
+def get_extracted_text_content(file_name: str, source_type: str) -> str:
+    # Map source_type to the correct folder path
+    def get_file_prefix(source_type: str) -> str:
+        if source_type == 'opensource':
+            return "opensource_extracted/"
+        elif source_type == 'cloudmersive_API':
+            return "cloudmersive_API_extracted/"
+        else:
+            raise ValueError('Invalid source_type')
+
+    # Construct the full blob name
+    prefix = get_file_prefix(source_type)
+    # Replace the file extension with .txt
+    base_name, _ = os.path.splitext(file_name)
+    txt_file_name = base_name + '.txt'
+    blob_name = prefix + txt_file_name
+
+    # Retrieve the content of the .txt file from the bucket
+    try:
+        bucket_name = 'gaia_files_pdf'
+        bucket = storage_client.get_bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+        text_content = blob.download_as_text()
+        return text_content
+    except NotFound:
+        raise HTTPException(status_code=404, detail="Extracted text file not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving extracted text: {str(e)}")
+
+# Summarize Endpoint
+@app.post("/summarize")
+async def summarize_pdf(
+    request: SummarizeRequest,
+    token: str = Depends(oauth2_scheme)
+):
+    # Token verification (same as before)
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = payload.get("sub")
+        if not username:
+            raise HTTPException(status_code=401, detail="Invalid token payload")
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    # Validate source_type input
+    if request.source_type not in ["opensource", "cloudmersive_API"]:
+        raise HTTPException(status_code=400, detail="source_type must be 'opensource' or 'cloudmersive_API'")
+
+    # Retrieve the extracted text
+    text_content = get_extracted_text_content(request.file_name, request.source_type)
+
+    # Prepare the prompt for summarization
+    prompt = f"Please provide a concise and comprehensive summary of the following text:\n\n{text_content}"
+
+    # Send the prompt to OpenAI API
     try:
         response = client.chat.completions.create(
             model="gpt-4o-mini",  # Replace with a valid model name if necessary
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": chat_message.message}
+                {"role": "system", "content": "You are a helpful assistant that summarizes texts."},
+                {"role": "user", "content": prompt}
             ]
         )
         message = response.choices[0].message.content
-        return {"reply": message}
+        return {"summary": message}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error with OpenAI API: {str(e)}")
+
+# Ask Question Endpoint
+@app.post("/ask-question")
+async def ask_question(
+    request: QuestionRequest,
+    token: str = Depends(oauth2_scheme)
+):
+    # Token verification (same as before)
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = payload.get("sub")
+        if not username:
+            raise HTTPException(status_code=401, detail="Invalid token payload")
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    # Validate source_type input
+    if request.source_type not in ["opensource", "cloudmersive_API"]:
+        raise HTTPException(status_code=400, detail="source_type must be 'opensource' or 'cloudmersive_API'")
+
+    # Retrieve the extracted text
+    text_content = get_extracted_text_content(request.file_name, request.source_type)
+
+    # Prepare the prompt for question-answering
+    prompt = f"The following text is from a PDF document:\n\n{text_content}\n\nAnswer the following question based on the text above:\n{request.question}"
+
+    # Send the prompt to OpenAI API
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # Replace with a valid model name if necessary
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant that answers questions based on provided text."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        message = response.choices[0].message.content
+        return {"answer": message}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error with OpenAI API: {str(e)}")
