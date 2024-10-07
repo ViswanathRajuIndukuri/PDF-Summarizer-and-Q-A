@@ -357,7 +357,7 @@ def extract_text_cloudmersive(target_folder, **kwargs):
 
 # DAG definition
 with DAG(
-    'huggingface_to_gcp_with_ghostscript_and_text_extraction',
+    'huggingface_to_gcp_and_text_extraction',
     default_args=default_args,
     description='Download PDFs from Hugging Face, compress if necessary, extract text, and upload to GCP',
     schedule_interval=timedelta(days=1),
