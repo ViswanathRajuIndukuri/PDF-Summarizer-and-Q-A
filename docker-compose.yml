@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  fastapi:
+    build:
+      context: .  # Set the build context to the root directory
+      dockerfile: ./Fast_API/Dockerfile  # Point to FastAPI Dockerfile
+    container_name: fastapi_container
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  streamlit:
+    build:
+      context: .  # Set the build context to the root directory
+      dockerfile: ./Streamlit_app/Dockerfile  # Point to Streamlit Dockerfile
+    container_name: streamlit_container
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi
+    environment:
+      - API_URL=${API_URL:-http://fastapi:8000}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

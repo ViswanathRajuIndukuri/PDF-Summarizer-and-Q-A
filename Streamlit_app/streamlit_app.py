@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
+import os
 
-# Set the FastAPI backend URL
-API_URL = "http://localhost:8000"  # Replace with your actual backend URL if different
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 # Initialize session state variables
 if 'logged_in' not in st.session_state:
