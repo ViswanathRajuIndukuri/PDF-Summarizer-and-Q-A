@@ -26,8 +26,18 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+gcp_creds_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+# Set the environment variable for Google Cloud authentication
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gcp_creds_path
+
+# Initialize Google Cloud Storage client with credentials
+if gcp_creds_path:
+    credentials = Credentials.from_service_account_file(gcp_creds_path)
+    storage_client = storage.Client(credentials=credentials)
+else:
+    raise RuntimeError("Google Cloud credentials not found. Please set GOOGLE_APPLICATION_CREDENTIALS in .env")
 
 app = FastAPI()
 

@@ -4,7 +4,7 @@ FROM python:3.12
 # Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy the directory to /app
+# Copy the entire root directory into /app
 COPY . /app
 
 # Install any required packages specified in requirements.txt
