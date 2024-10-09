@@ -68,13 +68,16 @@ x-airflow-common:
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-  streamlit pypdf2 google-cloud-storage datasets requests beautifulsoup4 pikepdf PyMuPDF pdfplumber pytesseract cloudmersive-convert-api-client cloudmersive-ocr-api-client}
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-streamlit pypdf2 google-cloud-storage datasets requests beautifulsoup4 pikepdf PyMuPDF pdfplumber pytesseract cloudmersive-convert-api-client cloudmersive-ocr-api-client}
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
-    AIRFLOW__CORE__ENABLE_XCOM_PICKLING: 'true'
-    GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/credentials/bigdata-8989-3740b0648ae1.json
     HUGGING_FACE_TOKEN: ${HUGGING_FACE_TOKEN}
+    GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
+    BASE_URL: ${BASE_URL}
+    TEST_DIRECTORY_URL: ${TEST_DIRECTORY_URL}
+    VALIDATION_DIRECTORY_URL: ${VALIDATION_DIRECTORY_URL}
+    TESSERACT_CMD_PATH: ${TESSERACT_CMD_PATH}
     CLOUDMERSIVE_API_KEY: ${CLOUDMERSIVE_API_KEY}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
