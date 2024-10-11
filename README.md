@@ -52,37 +52,31 @@ The challenge is to create an automated workflow that extracts text from PDFs in
 
 **Scope**
 + **Automation**: Automate the data acquisition and text extraction process for PDFs using Airflow.
-
 + **User Interaction**: Provide a secure application with user registration and authentication using FastAPI and Streamlit.
-
 + **Functionality**: Allow users to select PDFs, view extracted text, summarize content, and ask questions using OpenAI API.
-
 + **Deployment**: Ensure secure deployment using Docker and Docker Compose.
 
 **Outcomes**
-
-A fully automated pipeline that handles downloading, compressing, and extracting text from PDFs.
-
-A client-facing application that enables users to interact with the data securely.
-
-Deployment of the application in a containerized environment for ease of use.
++ A fully automated pipeline that handles downloading, compressing, and extracting text from PDFs.
++ A client-facing application that enables users to interact with the data securely.
++ Deployment of the application in a containerized environment for ease of use.
 
 ## Application Workflow
 The application integrates several components, including data acquisition and processing with Airflow, storage on Google Cloud Storage, and a user interface built with Streamlit and FastAPI.
 
 1. **Data Acquisition and Processing (Airflow DAG):**
 
-**Task 1** - Web Scraping and PDF Processing:
++ **Task 1** - Web Scraping and PDF Processing:
 Fetches PDF file names from the GAIA dataset directories on Hugging Face.
 Downloads the PDFs using the Hugging Face API.
 Compresses PDFs larger than 4MB using Ghostscript.
 Uploads the processed PDFs to the gaia_pdfs folder in Google Cloud Storage (GCS).
 
-**Task 2** - Open-Source Text Extraction:
++ **Task 2** - Open-Source Text Extraction:
 Extracts text, tables, and images (with OCR) from PDFs using tools like pdfplumber, PyMuPDF, and pytesseract.
 Saves the extracted content to the opensource_extracted folder in GCS.
 
-**Task 3** - Cloudmersive API Text Extraction:
++ **Task 3** - Cloudmersive API Text Extraction:
 Uses the Cloudmersive API to extract text and perform OCR on images within PDFs.
 Saves the extracted content to the cloudmersive_API_extracted folder in GCS.
 
