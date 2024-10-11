@@ -72,19 +72,23 @@ x-airflow-common:
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
-    HUGGING_FACE_TOKEN: ${HUGGING_FACE_TOKEN}
-    GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
-    BASE_URL: ${BASE_URL}
-    TEST_DIRECTORY_URL: ${TEST_DIRECTORY_URL}
-    VALIDATION_DIRECTORY_URL: ${VALIDATION_DIRECTORY_URL}
-    TESSERACT_CMD_PATH: ${TESSERACT_CMD_PATH}
-    CLOUDMERSIVE_API_KEY: ${CLOUDMERSIVE_API_KEY}
+
+    # HUGGING_FACE_TOKEN: ${HUGGING_FACE_TOKEN}
+    # GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
+    # BASE_URL: ${BASE_URL}
+    # TEST_DIRECTORY_URL: ${TEST_DIRECTORY_URL}
+    # VALIDATION_DIRECTORY_URL: ${VALIDATION_DIRECTORY_URL}
+    # TESSERACT_CMD_PATH: ${TESSERACT_CMD_PATH}
+    # CLOUDMERSIVE_API_KEY: ${CLOUDMERSIVE_API_KEY}
+
+  env_file:
+    - ./.env
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
-    - ${AIRFLOW_PROJ_DIR:-.}/credentials:/opt/airflow/credentials
+    - ./bigdata-8989-c84dd170777d.json:/opt/airflow/bigdata-8989-c84dd170777d.json
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on

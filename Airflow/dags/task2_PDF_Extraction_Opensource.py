@@ -14,8 +14,6 @@ load_dotenv()
 gcp_key_file = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 tesseract_cmd_path = os.getenv("TESSERACT_CMD_PATH")
 bucket_name = os.getenv("GCP_BUCKET_NAME")
-source_folder = os.getenv("SOURCE_FOLDER")
-target_folder = os.getenv("TARGET_FOLDER")
  
 # Set the path to the GCP credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gcp_key_file
@@ -153,7 +151,7 @@ def process_pdfs_in_gcp(bucket_name, source_folder, target_folder):
             save_extracted_data_to_gcp(bucket_name, target_folder, file_name, extracted_content)
  
 # Example usage:
-bucket_name = 'gaia_files_pdfs_sample'
+bucket_name = 'gaia_files_pdf'
 source_folder = 'gaia_pdfs'  
 target_folder = 'opensource_extracted'
  
