@@ -107,7 +107,7 @@ Provides an interactive and user-friendly interface for seamless interaction.
 .
 ├── Airflow
 │   ├── Dockerfile
-│   ├── bigdata-8989-c84dd170777d.json
+│   ├── YourGCPServiceAccount.json
 │   ├── config
 │   ├── dags
 │   │   ├── Pipeline.py
@@ -161,15 +161,79 @@ Access the Airflow web UI at http://localhost:8080
 
 4. Trigger the Airflow DAG in the Airflow UI (trigger the gaia_processing_dag) to start the data pipeline.
 
-5. Build and Run the Application Containers
+5. Navigate back to root dir to setup relevant env variables for streamlit and FastAPI
 ```
-cd .. #Navigating back to root dir
-docker-compose up --build #Build and run the FastAPI and Streamlit containers using Docker Compose
+cd ..
 ```
 
-6. Access the Application by opening a web browser and navigate to http://localhost:8501
+```
+#env for root dir
 
-7. Now you'll see the application running, Register a new user and Login to access all the functionalities of the application.
+DB_HOST="your DB Host"
+DB_PORT=5432 # default
+DB_NAME=""your DB name
+DB_USER="your DB user"
+DB_PASSWORD="your DB pwd"
+
+API_URL=http://fastapi:8000
+
+SECRET_KEY="your secret key"
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=60
+GOOGLE_APPLICATION_CREDENTIALS="your GCP Service Account json"
+OPENAI_API_KEY="your openai API Key"
+```
+
+6. Local docker compose build and up, push the images to hub
+ + build fastapi and streamlit docker images through docker compose from root dir
+ ```
+ docker compose build --no-cache
+ ```
+ + Runs the images thorugh docker compose
+ ```
+ docker compose up
+ ```
+ + Tag the FastAPI image:
+ ```
+ docker tag ImageNameForFastapi Username/ImageNameForFastapi:latest
+ ```
+ + Tag the Streamlit image:
+ ```
+ docker tag ImageNameForStreamlit Username/ImageNameForStreamlit:latest
+ ```
+ + Push FastAPI:
+ ```
+ docker push Username/ImageNameForFastapi:latest
+ ```
+ + Push Streamlit:
+ ```
+ docker push Username/ImageNameForStreamlit:latest
+ ```
+7. GCP docker setup, create folder, create docker compose file, scp the .env and json file, pull the images, run docker compose.
+ + Install Docker:
+ ```
+ sudo apt update
+ sudo apt install -y docker.io
+ ```
+ + Install Docker Compose:
+ ```
+ sudo curl -L "https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+ sudo chmod +x /usr/local/bin/docker-compose
+ ```
+ + Create a Directory for Your Project:
+ ```
+ mkdir ~/yourapp
+ cd ~/yourapp
+ ```
+ + scp json file to myapp and .env
+ ```
+ gcloud compute scp --project YourProjectName --zone YourZone-f /path to your root dir/ServiceAccountJson Username@InstanceName:/PathInGCPToyourapp/ServiceAccountJson
+ gcloud compute scp --project YourProject --zone YourZone-f /path to your root dir/.env Username@InstanceName:/PathInGCPToyourapp/.env
+ ```
+8.
+9. Access the Application by opening a web browser and navigate to http://localhost:8501
+
+10. Now you'll see the application running, Register a new user and Login to access all the functionalities of the application.
 
 ## Accessing Application via Cloud:
 After deploying application through Cloud, you can use the application at url: http://viswanath.me:8501/
