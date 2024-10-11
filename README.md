@@ -62,6 +62,7 @@ Deployment of the application in a containerized environment for scalability and
 The application integrates several components, including data acquisition and processing with Airflow, storage on Google Cloud Storage, and a user interface built with Streamlit and FastAPI.
 
 1. Data Acquisition and Processing (Airflow DAG):
+
 Task 1 - Web Scraping and PDF Processing:
 Fetches PDF file names from the GAIA dataset directories on Hugging Face.
 Downloads the PDFs using the Hugging Face API.
