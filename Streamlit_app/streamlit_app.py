@@ -233,7 +233,7 @@ def home():
             '<div style="text-align: left; font-size: 2.5rem; font-weight: bold;">📄 PDF Summarizer and Q&A</div>',
             unsafe_allow_html=True)
         st.markdown(
-            f'<div style="text-align: left; font-size: 2rem;">Welcome, {st.session_state.username}!</div>',
+            f'<div style="text-align: left; font-size: 1.0rem; margin-bottom: 20px;">💐 Welcome, {st.session_state.username}!</div>',
             unsafe_allow_html=True)
         st.markdown(
             f'<div style="text-align: left; font-size: 2rem;">Select a PDF file and choose an action.</div>',
@@ -340,7 +340,7 @@ def home():
         if response.status_code == 200:
             extracted_text = response.json().get("extracted_text", "")
             st.subheader("📝 Extracted Text Preview")
-            st.text_area("Extracted Text Content", extracted_text[:5000], height=300, disabled=True)
+            st.code(extracted_text[:5000], language="text")  # Displaying the first 5000 characters
         else:
             error_detail = response.json().get('detail', 'Unknown error')
             st.error(f"❌ Error fetching extracted text: {error_detail}")
@@ -420,6 +420,8 @@ def home():
         if st.session_state.answer and st.session_state.question_answered:
             st.subheader("💡 Answer")
             st.write(st.session_state.answer)
+        
+        st.write("---")  # Separator
 
 def main():
     if st.session_state.page == "home":
