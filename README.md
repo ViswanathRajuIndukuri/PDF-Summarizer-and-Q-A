@@ -36,9 +36,11 @@ This project was completed as a team effort over two weeks, with each member foc
 ## Description
 This project focuses on automating the extraction of text from PDF files in the GAIA dataset using Apache Airflow and developing a secure, client-facing application using Streamlit and FastAPI. The objectives are to streamline the process of retrieving and processing documents, ensure that the extracted information is accurately populated into data storage, and provide a user-friendly interface for interaction, including functionalities like summarization and question-answering.
 
-Documentation: https://codelabs-preview.appspot.com/?file_id=1QYiFTdbxrUgrE0szRKMQ8sIxHFE_9KpekGauMBp8vzM#0
+**Documentation**: https://codelabs-preview.appspot.com/?file_id=1QYiFTdbxrUgrE0szRKMQ8sIxHFE_9KpekGauMBp8vzM#0
 
-Demo Video Link: 
+**Demo Video Link**:
+
+**Application URL**: http://viswanath.me:8501/
 
 ## Architecture
 ![combined_architecture](https://github.com/user-attachments/assets/18f29314-abb7-4e68-ac76-96a83419195b)
@@ -51,13 +53,19 @@ The challenge is to create an automated workflow that extracts text from PDFs in
 **Scope**
 
 **Automation**: Automate the data acquisition and text extraction process for PDFs using Airflow.
+
 **User Interaction**: Provide a secure application with user registration and authentication using FastAPI and Streamlit.
+
 **Functionality**: Allow users to select PDFs, view extracted text, summarize content, and ask questions using OpenAI API.
+
 **Deployment**: Ensure secure deployment using Docker and Docker Compose.
 
 **Outcomes**
+
 A fully automated pipeline that handles downloading, compressing, and extracting text from PDFs.
+
 A client-facing application that enables users to interact with the data securely.
+
 Deployment of the application in a containerized environment for ease of use.
 
 ## Application Workflow
