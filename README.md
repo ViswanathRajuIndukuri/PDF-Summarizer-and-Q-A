@@ -46,6 +46,8 @@ This project focuses on automating the extraction of text from PDF files in the 
 
 **Application URL**: http://viswanath.me:8501/
 
+**Backend Service Link**: http://viswanath.me:8000/docs
+
 ## Architecture
 ![pdf_summarizer_and_q a](https://github.com/user-attachments/assets/069cfbc8-4904-403e-a728-9afcfd6218c8)
 
@@ -107,21 +109,20 @@ Saves the extracted content to the cloudmersive_API_extracted folder in GCS.
 Provides an interactive and user-friendly interface for seamless interaction.
 
 ## Project Tree
-```
-.
+```.
 ├── Airflow
 │   ├── Dockerfile
-│   ├── YourGCPServiceAccount.json
-│   ├── config
 │   ├── dags
 │   │   ├── Pipeline.py
-│   │   ├── __pycache__
 │   │   ├── task1_Web_Scraping.py
 │   │   ├── task2_PDF_Extraction_Opensource.py
 │   │   └── task3_PDF_Extraction_Cloudmersive.py
 │   ├── docker-compose.yaml
-│   ├── plugins
 │   └── requirements.txt
+├── Extraction_Evaluation
+│   ├── Cloudmersive_API_Metrics_Template.ipynb
+│   ├── Opensource_Metrics_Template.ipynb
+│   └── PDF Extraction API Evaluation.pdf
 ├── Fast_API
 │   ├── Dockerfile
 │   └── main.py
@@ -129,9 +130,17 @@ Provides an interactive and user-friendly interface for seamless interaction.
 ├── Streamlit_app
 │   ├── Dockerfile
 │   └── streamlit_app.py
+├── diagrams
+│   ├── Assignment2_diagram.ipynb
+│   ├── airflow_icon.png
+│   ├── docker_icon.png
+│   ├── fastapi_icon.png
+│   ├── hf_icon.png
+│   ├── openai_icon.png
+│   ├── pdf_summarizer_and_q&a.png
+│   └── streamlit_icon.png
 ├── docker-compose.yml
-├── requirements.txt
-└── venv
+└── requirements.txt
 ```
 
 ## Set Up Application Locally
