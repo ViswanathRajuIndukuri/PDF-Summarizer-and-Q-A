@@ -1,11 +1,14 @@
 # PDF Summarizer and Q&A
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Apache Airflow](https://img.shields.io/badge/Apache%20Airflow-017CEE?style=for-the-badge&logo=apache-airflow&logoColor=white)](https://airflow.apache.org/)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Google Cloud](https://img.shields.io/badge/Google%20Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com)
 [![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)](https://openai.com)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
+
+
 
 WE ATTEST THAT WE HAVEN’T USED ANY OTHER STUDENTS’ WORK IN OUR
 ASSIGNMENT AND ABIDE BY THE POLICIES LISTED IN THE STUDENT HANDBOOK
@@ -38,12 +41,12 @@ This project focuses on automating the extraction of text from PDF files in the 
 
 **Documentation**: https://codelabs-preview.appspot.com/?file_id=1QYiFTdbxrUgrE0szRKMQ8sIxHFE_9KpekGauMBp8vzM#0
 
-**Demo Video Link**:
+**Demo Video Link**: https://drive.google.com/drive/folders/1ukDBLyHBy-B8cxhaX4gXOkhiupddNL0J?usp=sharing
 
 **Application URL**: http://viswanath.me:8501/
 
 ## Architecture
-![combined_architecture](https://github.com/user-attachments/assets/18f29314-abb7-4e68-ac76-96a83419195b)
+![pdf_summarizer_and_q a](https://github.com/user-attachments/assets/069cfbc8-4904-403e-a728-9afcfd6218c8)
 
 ## About
 **Problem**
