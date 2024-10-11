@@ -7,17 +7,44 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
-##Description
+WE ATTEST THAT WE HAVEN’T USED ANY OTHER STUDENTS’ WORK IN OUR
+ASSIGNMENT AND ABIDE BY THE POLICIES LISTED IN THE STUDENT HANDBOOK
+Contribution:
+- a. Viswanath Raju Indukuri: 33%
+- b. Snehal Shivaji Molavade: 33%
+- c. Sai Vivekanand Reddy Vangala: 33%
+
+### Individual Contributions
+ 
+This project was completed as a team effort over two weeks, with each member focusing on specific tasks to ensure successful completion. Below are the individual contributions:
+ 
+#### Viswanath Raju Indukuri
+- **Streamlit Pages Design and Validation Tool:** Developed and designed the Streamlit application pages, including the implementation of the validation tool.
+- **Terraform Infrastructure as Code (IaC):** Created and configured Terraform scripts for infrastructure provisioning and management.
+- **OpenAI API Integration:** Integrated OpenAI's API into the validation tool for automated responses and evaluation.
+ 
+#### Snehal Shivaji Molavade
+- **GCP Cloud Storage and PostgreSQL Setup:** Set up Google Cloud Storage and Cloud PostgreSQL, including data storage and retrieval configurations.
+- **Codelab Documentation:** Created comprehensive documentation for the project, detailing steps for setup, deployment, and usage.
+- **Source File Context Extraction and Integration:** Extracted context from source files into text format and integrated it with the validation tool in Streamlit.
+ 
+#### Sai Vivekanand Reddy Vangala
+- **GCloud SQL Setup:** Configured Google Cloud SQL instances for database management and data handling.
+- **Data Handling:** Managed data preparation, transformation, and integration into the project workflow.
+- **Streamlit Metrics Page:** Developed the metrics page in Streamlit to visualize and evaluate validation results.
+- **Architecture Diagram:** Designed the architecture diagram to represent the project's cloud infrastructure and data flow.
+
+## Description
 This project focuses on automating the extraction of text from PDF files in the GAIA dataset using Apache Airflow and developing a secure, client-facing application using Streamlit and FastAPI. The objectives are to streamline the process of retrieving and processing documents, ensure that the extracted information is accurately populated into data storage, and provide a user-friendly interface for interaction, including functionalities like summarization and question-answering.
 
 Documentation: https://codelabs-preview.appspot.com/?file_id=1QYiFTdbxrUgrE0szRKMQ8sIxHFE_9KpekGauMBp8vzM#0
 
 Demo Video Link: 
 
-##Architecture
+## Architecture
 ![combined_architecture](https://github.com/user-attachments/assets/18f29314-abb7-4e68-ac76-96a83419195b)
 
-##About
+## About
 Problem
 The challenge is to create an automated workflow that extracts text from PDFs in the GAIA Benchmarking Validation & Testing Dataset and to develop a secure, user-friendly application that allows users to interact with the extracted data.
 
@@ -32,7 +59,7 @@ A fully automated pipeline that handles downloading, compressing, and extracting
 A client-facing application that enables users to interact with the data securely.
 Deployment of the application in a containerized environment for scalability and ease of use.
 
-##Application Workflow
+## Application Workflow
 The application integrates several components, including data acquisition and processing with Airflow, storage on Google Cloud Storage, and a user interface built with Streamlit and FastAPI.
 
 1. Data Acquisition and Processing (Airflow DAG):
@@ -70,17 +97,58 @@ Sends prompts to OpenAI API for summarization and question-answering.
 The Streamlit frontend displays the extracted text, generated summaries, and answers to user queries.
 Provides an interactive and user-friendly interface for seamless interaction.
 
-##Project Tree
+## Project Tree
+```
+.
+├── Airflow
+│   ├── Dockerfile
+│   ├── bigdata-8989-c84dd170777d.json
+│   ├── config
+│   ├── credentials
+│   ├── dags
+│   ├── docker-compose.yaml
+│   ├── plugins
+│   └── requirements.txt
+├── Fast_API
+│   ├── Dockerfile
+│   └── main.py
+├── README.md
+├── Streamlit_app
+│   ├── Dockerfile
+│   └── streamlit_app.py
+├── docker-compose.yml
+├── requirements.txt
+└── venv
+```
 
-##Set Up Application Locally
-1. Clone the Repository
-2. Set Up Environment Variables
-3. Build and Run Airflow
-4. Trigger the Airflow DAG
+## Set Up Application Locally
+1. Clone the repository to get all the source code on your machine 
+```
+git clone yourRepo
+cd yourRepo
+```
+2. Set Up Environment Variables at required locations by creating .env files with variable values.
+
+3. Build and Run Airflow by ruuning below commands
+```
+cd Airflow
+docker build -t my_airflow_image:latest .
+docker-compose up -d
+```
+Access the Airflow web UI at http://localhost:8080
+
+4. Trigger the Airflow DAG in the Airflow UI (trigger the gaia_processing_dag) to start the data pipeline.
+
 5. Build and Run the Application Containers
-6. Access the Application at 8501
-7. Register and Use the Application
+```
+cd .. #Navigating back to root dir
+docker-compose up --build #Build and run the FastAPI and Streamlit containers using Docker Compose
+```
 
-##Accessing Application via Cloud:
+6. Access the Application by opening a web browser and navigate to http://localhost:8501
+
+7. Now you'll see the application running, Register a new user and Login to access all the functionalities of the application.
+
+## Accessing Application via Cloud:
 After deploying application through Cloud, you can use the application at url: http://viswanath.me:8501/
 
