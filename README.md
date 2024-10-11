@@ -48,6 +48,8 @@ This project focuses on automating the extraction of text from PDF files in the 
 
 **Backend Service Link**: http://viswanath.me:8000/docs
 
+**data processing link**: http://localhost:8080/home
+
 ## Architecture
 ![pdf_summarizer_and_q a](https://github.com/user-attachments/assets/069cfbc8-4904-403e-a728-9afcfd6218c8)
 
