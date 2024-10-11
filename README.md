@@ -51,14 +51,13 @@ This project focuses on automating the extraction of text from PDF files in the 
 The challenge is to create an automated workflow that extracts text from PDFs in the GAIA Benchmarking Validation & Testing Dataset and to develop a secure, user-friendly application that allows users to interact with the extracted data.
 
 **Scope**
++ **Automation**: Automate the data acquisition and text extraction process for PDFs using Airflow.
 
-**Automation**: Automate the data acquisition and text extraction process for PDFs using Airflow.
++ **User Interaction**: Provide a secure application with user registration and authentication using FastAPI and Streamlit.
 
-**User Interaction**: Provide a secure application with user registration and authentication using FastAPI and Streamlit.
++ **Functionality**: Allow users to select PDFs, view extracted text, summarize content, and ask questions using OpenAI API.
 
-**Functionality**: Allow users to select PDFs, view extracted text, summarize content, and ask questions using OpenAI API.
-
-**Deployment**: Ensure secure deployment using Docker and Docker Compose.
++ **Deployment**: Ensure secure deployment using Docker and Docker Compose.
 
 **Outcomes**
 
