@@ -82,24 +82,24 @@ Saves the extracted content to the cloudmersive_API_extracted folder in GCS.
 
 2. **User Interaction (Frontend and Backend):**
 
-**Streamlit Frontend:**
-Users can register and log in to the application.
-Allows selection of PDFs and extraction methods.
-Displays extracted text, summaries, and answers to user questions.
++ **Streamlit Frontend:**
+ + Users can register and log in to the application.
+ + Allows selection of PDFs and extraction methods.
+ + Displays extracted text, summaries, and answers to user questions.
 
-**FastAPI Backend:**
-Handles user authentication and authorization using JWT tokens.
-Provides API endpoints for file listing, text retrieval, summarization, and Q&A.
-Interacts with GCS to fetch extracted text files.
-Utilizes OpenAI API for generating summaries and answering questions.
++ **FastAPI Backend:**
+ + Handles user authentication and authorization using JWT tokens.
+ + Provides API endpoints for file listing, text retrieval, summarization, and Q&A.
+ + Interacts with GCS to fetch extracted text files.
+ + Utilizes OpenAI API for generating summaries and answering questions.
 
 3. **Backend Processing (FastAPI):**
-Validates user authentication for secure access for all protected endpoints.
-Retrieves extracted text based on user selections.
-Sends prompts to OpenAI API for summarization and question-answering.
++ Validates user authentication for secure access for all protected endpoints.
++ Retrieves extracted text based on user selections.
++ Sends prompts to OpenAI API for summarization and question-answering.
 
 4. **Output Delivery:**
-The Streamlit frontend displays the extracted text, generated summaries, and answers to user queries.
++ The Streamlit frontend displays the extracted text, generated summaries, and answers to user queries.
 Provides an interactive and user-friendly interface for seamless interaction.
 
 ## Project Tree
