@@ -151,7 +151,7 @@ CLOUDMERSIVE_API_KEY="your cloudmersive key"
 
 ```
 
-3. Build and Run Airflow by ruuning below commands
+3. Build and Run Airflow by running below commands
 ```
 cd Airflow
 docker build -t my_airflow_image:latest .
