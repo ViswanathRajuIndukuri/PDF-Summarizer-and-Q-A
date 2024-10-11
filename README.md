@@ -19,19 +19,18 @@ Contribution:
 This project was completed as a team effort over two weeks, with each member focusing on specific tasks to ensure successful completion. Below are the individual contributions:
  
 #### Viswanath Raju Indukuri
-- **Streamlit Pages Design and Validation Tool:** Developed and designed the Streamlit application pages, including the implementation of the validation tool.
-- **Terraform Infrastructure as Code (IaC):** Created and configured Terraform scripts for infrastructure provisioning and management.
+- **Streamlit:** Developed and designed the frontend application using streamlit.
+- **FastAPI:** Created backend application using FastAPI with multiple API endpoints that are required for application features
 - **OpenAI API Integration:** Integrated OpenAI's API into the validation tool for automated responses and evaluation.
  
 #### Snehal Shivaji Molavade
-- **GCP Cloud Storage and PostgreSQL Setup:** Set up Google Cloud Storage and Cloud PostgreSQL, including data storage and retrieval configurations.
-- **Codelab Documentation:** Created comprehensive documentation for the project, detailing steps for setup, deployment, and usage.
-- **Source File Context Extraction and Integration:** Extracted context from source files into text format and integrated it with the validation tool in Streamlit.
+- **GCP Cloud Storage and PostgreSQL Setup:** Set up Google Cloud Storage in neccessary format for text extraction.
+- **Airflow:** created tasks and designed pipeline for the airflow applicaion to extract text from store it in GCS
+- **Text Extraction:** Used different libraries to extract text from the documents in the datasets.
  
 #### Sai Vivekanand Reddy Vangala
-- **GCloud SQL Setup:** Configured Google Cloud SQL instances for database management and data handling.
-- **Data Handling:** Managed data preparation, transformation, and integration into the project workflow.
-- **Streamlit Metrics Page:** Developed the metrics page in Streamlit to visualize and evaluate validation results.
+- **Airflow with Docker:** Improvised the Airflow by running it via docker containers and making sure data acquisition is handled properly
+- **Codelab Documentation:** Created comprehensive documentation for the project, detailing steps for setup, deployment, and usage.
 - **Architecture Diagram:** Designed the architecture diagram to represent the project's cloud infrastructure and data flow.
 
 ## Description
@@ -104,8 +103,12 @@ Provides an interactive and user-friendly interface for seamless interaction.
 │   ├── Dockerfile
 │   ├── bigdata-8989-c84dd170777d.json
 │   ├── config
-│   ├── credentials
 │   ├── dags
+│   │   ├── Pipeline.py
+│   │   ├── __pycache__
+│   │   ├── task1_Web_Scraping.py
+│   │   ├── task2_PDF_Extraction_Opensource.py
+│   │   └── task3_PDF_Extraction_Cloudmersive.py
 │   ├── docker-compose.yaml
 │   ├── plugins
 │   └── requirements.txt
