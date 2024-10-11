@@ -84,7 +84,7 @@ def process_pdfs_in_gcp_cloudmersive(bucket_name, source_folder, target_folder):
                 save_extracted_data_to_gcp(bucket_name, target_folder, file_name, extracted_text_content)
 
 # Example usage:
-bucket_name = 'gaia_files_pdfs_sample'
+bucket_name = 'gaia_files_pdf'
 source_folder = 'gaia_pdfs'  # Single folder for PDFs to be processed
 target_folder = 'cloudmersive_API_extracted'  # New folder for extracted content
 

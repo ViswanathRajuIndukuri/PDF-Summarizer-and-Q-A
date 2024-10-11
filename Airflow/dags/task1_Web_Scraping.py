@@ -18,7 +18,7 @@ test_directory_url = os.getenv("TEST_DIRECTORY_URL")
 validation_directory_url = os.getenv("VALIDATION_DIRECTORY_URL")
 
 # GCP Bucket name
-gcp_bucket_name = "gaia_files_pdfs_sample"
+gcp_bucket_name = "gaia_files_pdf"
 
 def fetch_pdf_file_names(directory_url):
     try:
