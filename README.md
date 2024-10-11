@@ -230,11 +230,46 @@ OPENAI_API_KEY="your openai API Key"
  gcloud compute scp --project YourProjectName --zone YourZone-f /path to your root dir/ServiceAccountJson Username@InstanceName:/PathInGCPToyourapp/ServiceAccountJson
  gcloud compute scp --project YourProject --zone YourZone-f /path to your root dir/.env Username@InstanceName:/PathInGCPToyourapp/.env
  ```
-8.
-9. Access the Application by opening a web browser and navigate to http://localhost:8501
+8. nano docker-compose.yml:
+```
+services:
+  fastapi:
+    image: Username/ImageNameForFastapi:latest  # Pull from Docker Hub
+    container_name: YourFastapiContainer
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env  # Pass the .env file located in the root directory at runtime
+    volumes:
+      - ./ServiceAccountJson:/app/ServiceAccountJson  # Mount the JSON file at runtime
+    networks:
+      - app-network
 
-10. Now you'll see the application running, Register a new user and Login to access all the functionalities of the application.
+  streamlit:
+    image: Username/ImageNameForStreamlit:latest  # Pull from Docker Hub
+    container_name: YourStreamlitContainer
+    ports:
+      - "8501:8501"
+    depends_on:
+      - fastapi
+    env_file:
+      - ./.env  # Pass the .env file located in the root directory at runtime
+    volumes:
+      - ./ServiceAccountJson:/app/ServiceAccountJson  # Mount the JSON file at runtime
+    networks:
+      - app-network
 
+networks:
+  app-network:
+    driver: bridge
+```
+
+9. Pull the Docker images and Start the containers:
+```
+sudo docker-compose pull
+sudo docker-compose up -d
+```
+ 
 ## Accessing Application via Cloud:
 After deploying application through Cloud, you can use the application at url: http://viswanath.me:8501/
 
