@@ -224,6 +224,8 @@ OPENAI_API_KEY="your openai API Key"
  ```
  docker push Username/ImageNameForStreamlit:latest
  ```
+## Deploy in GCP VM
+
 7. GCP docker setup, create folder, create docker compose file, scp the .env and json file, pull the images, run docker compose.
  + Install Docker:
  ```
