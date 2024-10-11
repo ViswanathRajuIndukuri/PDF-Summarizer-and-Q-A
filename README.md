@@ -137,6 +137,19 @@ git clone yourRepo
 cd yourRepo
 ```
 2. Set Up Environment Variables at required locations by creating .env files with variable values.
+```
+#env at Airflow
+
+GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/"your GCP Service Account json"
+AIRFLOW_UID=502
+HUGGING_FACE_TOKEN="your huggingface token"
+BASE_URL=https://huggingface.co/datasets/gaia-benchmark/GAIA/resolve/main/2023/
+TEST_DIRECTORY_URL=https://huggingface.co/datasets/gaia-benchmark/GAIA/tree/main/2023/test
+VALIDATION_DIRECTORY_URL=https://huggingface.co/datasets/gaia-benchmark/GAIA/tree/main/2023/validation
+TESSERACT_CMD_PATH=/usr/bin/tesseract
+CLOUDMERSIVE_API_KEY="your cloudmersive key"
+
+```
 
 3. Build and Run Airflow by ruuning below commands
 ```
