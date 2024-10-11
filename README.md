@@ -45,18 +45,20 @@ Demo Video Link:
 
 ## About
 **Problem**
+
 The challenge is to create an automated workflow that extracts text from PDFs in the GAIA Benchmarking Validation & Testing Dataset and to develop a secure, user-friendly application that allows users to interact with the extracted data.
 
 **Scope**
-Automation: Automate the data acquisition and text extraction process for PDFs using Apache Airflow.
-User Interaction: Provide a secure application with user registration and authentication using FastAPI and Streamlit.
-Functionality: Allow users to select PDFs, view extracted text, summarize content, and ask questions using OpenAI API.
-Deployment: Ensure secure deployment and scalability using Docker and Docker Compose.
+
+**Automation**: Automate the data acquisition and text extraction process for PDFs using Airflow.
+**User Interaction**: Provide a secure application with user registration and authentication using FastAPI and Streamlit.
+**Functionality**: Allow users to select PDFs, view extracted text, summarize content, and ask questions using OpenAI API.
+**Deployment**: Ensure secure deployment using Docker and Docker Compose.
 
 **Outcomes**
 A fully automated pipeline that handles downloading, compressing, and extracting text from PDFs.
 A client-facing application that enables users to interact with the data securely.
-Deployment of the application in a containerized environment for scalability and ease of use.
+Deployment of the application in a containerized environment for ease of use.
 
 ## Application Workflow
 The application integrates several components, including data acquisition and processing with Airflow, storage on Google Cloud Storage, and a user interface built with Streamlit and FastAPI.
