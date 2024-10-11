@@ -63,35 +63,36 @@ The application integrates several components, including data acquisition and pr
 
 1. Data Acquisition and Processing (Airflow DAG):
 Task 1 - Web Scraping and PDF Processing:
-
 Fetches PDF file names from the GAIA dataset directories on Hugging Face.
 Downloads the PDFs using the Hugging Face API.
 Compresses PDFs larger than 4MB using Ghostscript.
 Uploads the processed PDFs to the gaia_pdfs folder in Google Cloud Storage (GCS).
-Task 2 - Open-Source Text Extraction:
 
+Task 2 - Open-Source Text Extraction:
 Extracts text, tables, and images (with OCR) from PDFs using tools like pdfplumber, PyMuPDF, and pytesseract.
 Saves the extracted content to the opensource_extracted folder in GCS.
-Task 3 - Cloudmersive API Text Extraction:
 
+Task 3 - Cloudmersive API Text Extraction:
 Uses the Cloudmersive API to extract text and perform OCR on images within PDFs.
 Saves the extracted content to the cloudmersive_API_extracted folder in GCS.
+
 2. User Interaction (Frontend and Backend):
 Streamlit Frontend:
-
 Users can register and log in to the application.
 Allows selection of PDFs and extraction methods.
 Displays extracted text, summaries, and answers to user questions.
-FastAPI Backend:
 
+FastAPI Backend:
 Handles user authentication and authorization using JWT tokens.
 Provides API endpoints for file listing, text retrieval, summarization, and Q&A.
 Interacts with GCS to fetch extracted text files.
 Utilizes OpenAI API for generating summaries and answering questions.
+
 3. Backend Processing (FastAPI):
-Validates user authentication for secure access.
+Validates user authentication for secure access for all protected endpoints.
 Retrieves extracted text based on user selections.
 Sends prompts to OpenAI API for summarization and question-answering.
+
 4. Output Delivery:
 The Streamlit frontend displays the extracted text, generated summaries, and answers to user queries.
 Provides an interactive and user-friendly interface for seamless interaction.
