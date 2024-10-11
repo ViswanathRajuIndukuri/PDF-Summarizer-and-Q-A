@@ -58,7 +58,7 @@ A fully automated pipeline that handles downloading, compressing, and extracting
 A client-facing application that enables users to interact with the data securely.
 Deployment of the application in a containerized environment for scalability and ease of use.
 
-## Application 
+## Application Workflow
 The application integrates several components, including data acquisition and processing with Airflow, storage on Google Cloud Storage, and a user interface built with Streamlit and FastAPI.
 
 1. Data Acquisition and Processing (Airflow DAG):
