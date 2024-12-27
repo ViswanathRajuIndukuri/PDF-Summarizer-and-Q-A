@@ -9,34 +9,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com)
 
-
-
-WE ATTEST THAT WE HAVEN’T USED ANY OTHER STUDENTS’ WORK IN OUR
-ASSIGNMENT AND ABIDE BY THE POLICIES LISTED IN THE STUDENT HANDBOOK
-Contribution:
-- a. Viswanath Raju Indukuri: 33%
-- b. Snehal Shivaji Molavade: 33%
-- c. Sai Vivekanand Reddy Vangala: 33%
-
-### Individual Contributions
- 
-This project was completed as a team effort over two weeks, with each member focusing on specific tasks to ensure successful completion. Below are the individual contributions:
- 
-#### Viswanath Raju Indukuri
-- **Streamlit:** Developed and designed the frontend application using streamlit.
-- **FastAPI:** Created backend application using FastAPI with multiple API endpoints that are required for application features
-- **OpenAI API Integration:** Integrated OpenAI's API into the validation tool for automated responses and evaluation.
- 
-#### Snehal Shivaji Molavade
-- **GCP Cloud Storage and PostgreSQL Setup:** Set up Google Cloud Storage in neccessary format for text extraction.
-- **Airflow:** created tasks and designed pipeline for the airflow applicaion to extract text from store it in GCS
-- **Text Extraction:** Used different libraries to extract text from the documents in the datasets.
- 
-#### Sai Vivekanand Reddy Vangala
-- **Airflow with Docker:** Improvised the Airflow by running it via docker containers and making sure data acquisition is handled properly
-- **Codelab Documentation:** Created comprehensive documentation for the project, detailing steps for setup, deployment, and usage.
-- **Architecture Diagram:** Designed the architecture diagram to represent the project's cloud infrastructure and data flow.
-
 ## Description
 This project focuses on automating the extraction of text from PDF files in the GAIA dataset using Apache Airflow and developing a secure, client-facing application using Streamlit and FastAPI. The objectives are to streamline the process of retrieving and processing documents, ensure that the extracted information is accurately populated into data storage, and provide a user-friendly interface for interaction, including functionalities like summarization and question-answering.
 
